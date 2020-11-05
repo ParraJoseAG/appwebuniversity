@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="/plantilla/template :: header"></header>
+	<div class="container">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">NOMBRE DEL CURSO</th>
+					<th scope="col">HORARIO</th>
+					<th scope="col">CUPOS DISPONIBLES</th>
+					<th scope="col">PROFESOR</th>
+					<th scope="col">INSCRIBIR</th>
+					<th scope="col">DETALLE MATERIA</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="ma:${listaMaterias}">
+					<th scope="row" th:text="${ma.id}"></th>
+					<td th:text="${ma.nombreMateria}"></td>
+					<td th:text="${ma.horario}"></td>
+					<td th:text="${ma.cupoMaximoAlumno}"></td>
+					<td th:text="${ma.profesor}"></td>
+					<td><a class="btn btn-success btn-sm"
+						th:href="@{/alumno/inscribir/}+${ma.id}" title="Inscribir Materia">INSCRIBIR</a></td>
+					<td><a class="btn btn-danger btn-sm"
+						th:href="@{#}"
+						title="Detalle Materia">DETALLE</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+	<footer th:replace="/plantilla/template :: footer"></footer>
+</body>
+</html>

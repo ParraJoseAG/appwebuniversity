@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="/plantilla/template :: header"></header>
+
+
+	<div class="container">
+
+		<div class="card bg-light">
+			<div class="card text-center">
+				<div class="card-header bg-primary text-white" th:text=${titulo}></div>
+
+				<div class="card-body">
+					<form th:action=@{/admin/guardar} th:object=${profesor}
+						method="post">
+						<div class="form-group row">
+							<input type="hidden" th:field="*{id}" /> <label class="col-md-2"
+								for="nombre">NOMBRES:</label> <input type="text"
+								th:field="*{nombre}"
+								class="form-control form-control-sm col-md-6" id="nombre"
+								placeholder="Nombres del profesor" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors=*{nombre}>
+							</small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="apellido">APELLIDOS:</label> <input
+								type="text" th:field="*{apellido}"
+								class="form-control form-control-sm col-md-6" id="apellido"
+								placeholder="Apellidos del profesor"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('apellido')}" th:errors=*{apellido}></small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="edad">DNI:</label> <input
+								type="text" th:field="*{dni}"
+								class="form-control form-control-sm col-md-6" id="dni"
+								placeholder="DNI del profesor"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('dni')}" th:errors=*{dni}></small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="direccion">DIRECCIÓN:</label> <input
+								type="text" th:field="*{direccion}"
+								class="form-control form-control-sm col-md-6" id="direccion"
+								placeholder="Dirección del profesor"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('direccion')}" th:errors=*{direccion}></small>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2" for="email">EMAIL:</label> <input
+								type="email" th:field="*{email}"
+								class="form-control form-control-sm col-md-6" id="email"
+								placeholder="Email del profesor"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('email')}" th:errors=*{email}></small>
+						</div>
+
+
+						<div class="form-group row">
+							<label class="col-md-2" for="activo">STATUS:</label>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" th:field="*{activo}"
+									type="radio" name="activo" id="activo1" value="1"> <label
+									class="form-check-label" for="activo1"> ACTIVO </label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" th:field="*{activo}"
+									type="radio" name="activo" id="activo2" value="0"> <label
+									class="form-check-label" for="activo2">INACTIVO </label>
+							</div>
+						</div>
+
+						<div th:if="${accion =='registrar'}" class="card-footer">
+							<input type="submit" class="btn btn-primary btm-sn"
+								th:href=@{/admin/guardar} value="Registrar" /> <input
+								type="reset" class="btn btn-primary btm-sn"
+								value="Restaurar formulario" />
+						</div>
+						<div th:unless="${accion =='registrar'}" class="card-footer">
+							<input type="submit" class="btn btn-primary btm-sn"
+								th:href=@{/admin/guardar} value="Guardar" />
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/plantilla/template :: footer"></footer>
+</body>
+</html>

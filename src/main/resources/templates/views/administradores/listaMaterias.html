@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="/plantilla/template :: header"></header>
+	<div class="container">
+		<a class="btn btn-primary btn-sm" th:href="@{/admin/registrarMateria}"
+			title="Crear Nuevo Registro">Nueva Materia</a>
+	</div>
+	<div class="container">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">NOMBRE DEL CURSO</th>
+					<th scope="col">HORARIO</th>
+					<th scope="col">CUPOS DISPONIBLES</th>
+					<th scope="col">PROFESOR</th>
+					<th scope="col">DESCRIPCIÓN</th>
+					<th scope="col">EDITAR</th>
+					<th scope="col">ELIMINAR</th>
+				</tr>
+			</thead>
+			<tbody>
+			 
+				<tr th:each="ma:${listaMaterias}">
+					<th scope="row" th:text="${ma.id}"></th>
+					<td th:text="${ma.nombreMateria}"></td>
+					<td th:text="${ma.horario}"></td>
+					<td th:text="${ma.cupoMaximoAlumno}"></td>
+					<td th:text="${ma.profesor}"></td>
+					<td th:text="${ma.descripcion}"></td>
+					<td><a class="btn btn-success btn-sm"
+						th:href="@{/admin/editarMateria/}+${ma.id}"
+						title="Editar Registro">Editar</a></td>
+					<td><a class="btn btn-danger btn-sm"
+						th:href="@{/admin/eliminarMateria/}+${ma.id}"
+						title="Eliminar Registro"
+						onclick="return confirm('¿Estas seguro de eliminar el registro?')">Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+	<footer th:replace="/plantilla/template :: footer"></footer>
+</body>
+</html>

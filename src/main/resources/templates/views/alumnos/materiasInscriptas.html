@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="/plantilla/template :: header"></header>
+	<div class="container">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">NOMBRE DEL CURSO</th>
+					<th scope="col">HORARIO</th>
+					<th scope="col">PROFESOR</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="ma:${materiaInscriptas}">
+					<td th:text="${ma.nombreMateria}"></td>
+					<td th:text="${ma.horario}"></td>
+					<td th:text="${ma.profesor}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+	<footer th:replace="/plantilla/template :: footer"></footer>
+</body>
+</html>

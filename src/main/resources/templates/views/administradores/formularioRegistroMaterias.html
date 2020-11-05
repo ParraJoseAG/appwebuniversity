@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="/plantilla/template :: header"></header>
+
+
+	<div class="container">
+
+		<div class="card bg-light">
+			<div class="card text-center">
+				<div class="card-header bg-primary text-white" th:text=${titulo}></div>
+				<div class="card-body">
+					<form th:action=@{/admin/guardarMateria} th:object=${materia}
+						method="post">
+						<div class="form-group row">
+							<input type="hidden" th:field="*{id}" /> <label class="col-md-2"
+								for="nombreMateria">NOMBRE DEL CURSO:</label> <input type="text"
+								th:field="*{nombreMateria}"
+								class="form-control form-control-sm col-md-6" id="nombreMateria"
+								placeholder="Nombre del curso" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombreMateria')}"
+								th:errors=*{nombreMateria}> </small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="horario">HORARIO:</label> <input
+								type="text" th:field="*{horario}"
+								class="form-control form-control-sm col-md-6" id="horario"
+								placeholder="Horario del curso"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('horario')}" th:errors=*{horario}></small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="cupoMaximoAlumno">CUPOS
+								DISPONIBLES:</label> <input type="text" th:field="*{cupoMaximoAlumno}"
+								class="form-control form-control-sm col-md-6" id="dni"
+								placeholder="Cupos disponibles"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('cupoMaximoAlumno')}"
+								th:errors=*{cupoMaximoAlumno}></small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="ciudad">PROFESOR DEL CURSO:</label>
+							<select class="form-control form-control-sm col-md-6"
+								th:field="*{profesor}" id="profesor">
+								<option value="">Seleccione...</option>
+								<option th:each="pr : ${profesores}" th:value="${pr.id}"
+									th:text="${pr.nombre}" />
+							</select>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="descripcion">DESCRIPCIÓN:</label>
+							<textarea class="form-control" th:field="*{descripcion}"
+								id="descripcion"></textarea>
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('descripcion')}"
+								th:errors=*{descripcion}></small>
+						</div>
+
+						<div th:if="${accion =='registrar'}" class="card-footer">
+							<input type="submit" class="btn btn-primary btm-sn"
+								th:href=@{/admin/guardarMateria} value="Registrar" /> <input
+								type="reset" class="btn btn-primary btm-sn"
+								value="Restaurar formulario" />
+						</div>
+						<div th:unless="${accion =='registrar'}" class="card-footer">
+							<input type="submit" class="btn btn-primary btm-sn"
+								th:href=@{/admin/guardarMateria} value="Guardar" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/plantilla/template :: footer"></footer>
+</body>
+</html>

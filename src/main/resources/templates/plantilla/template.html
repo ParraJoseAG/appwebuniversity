@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>UNIVERSIDAD DE CARABOBO-UC</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+
+<body>
+
+	<!-- BARRA DE NAVEGACIÓN -->
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" th:href="@{/home}"> <img th:src="@{/imgs/uc}"
+				width="30" height="30">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item active"><a class="nav-link" th:href="@{/home}">HOME
+							<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{#}">FACULTADES</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{#}">ACERCA
+							DE LA UC</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{#}">INFORMACIÓN
+							PARA</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{#}">INVESTIGACIÓN</a></li>
+				</ul>
+
+
+				<div sec:authorize="hasRole('ADMINISTRADOR')">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/admin/listaProfesores}">LISTA DE PROFESORES</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/admin/listaMaterias}">LISTA DE MATERIAS</a></li>
+						<li class="nav-item"><strong class="nav-link">Administrador</strong></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">
+								Cerrar Sesion</a></li>
+					</ul>
+				</div>
+
+
+				<div sec:authorize="hasRole('ALUMNO')">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link" th:href="@{/alumno/inscribirMaterias}">INSCRIBIR
+								MATERIAS</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/alumno/misMaterias/}">MIS
+								MATERIAS</a></li>
+						<li class="nav-item"><strong class="nav-link">[[${#httpServletRequest.remoteUser}]]</strong></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">
+								Cerrar Sesion</a></li>
+					</ul>
+				</div>
+
+				<div th:unless="${#httpServletRequest.remoteUser != null}">
+					<a class="nav-link" th:href="@{/login}">Login</a>
+				</div>
+			</div>
+		</nav>
+
+		<!-- MENSAJES -->
+
+		<div class="alert alert-success alert-dismissable"
+			th:if="${success!=null}">
+			<label th:text="${success}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+
+		<div class="alert alert-danger alert-dismissable"
+			th:if="${error!=null}">
+			<label th:text="${error}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		<div class="alert alert-warning alert-dismissable"
+			th:if="${warning!=null}">
+			<label th:text="${warning}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+		<div class="alert alert-info alert-dismissable" th:if="${info!=null}">
+			<label th:text="${info}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	</header>
+
+	<!-- CONTENIDO -->
+
+
+
+	<!-- PIE DE PAGINA -->
+
+	<footer th:fragment="footer"
+		class="bg-dark text-white text-center fixed-bottom">
+
+
+		<div class="container">
+			<p>JOSE GUILLERMO PARRA APONTE- parrajoseag@gmail.com</p>
+
+
+		</div>
+
+	</footer>
+
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script type="text/javascript"
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

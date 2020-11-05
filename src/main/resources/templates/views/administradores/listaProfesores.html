@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<header th:replace="/plantilla/template :: header"></header>
+	<div class="container">
+		<a class="btn btn-primary btn-sm" th:href="@{/admin/registrar}"
+			title="Crear Nuevo Registro">Nuevo Profesor</a>
+	</div>
+	<div class="container">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">NOMBRES</th>
+					<th scope="col">APELLIDOS</th>
+					<th scope="col">DNI</th>
+					<th scope="col">DIRECCIÓN</th>
+					<th scope="col">EMAIL</th>
+					<th scope="col">STATUS</th>
+					<th scope="col">EDITAR</th>
+					<th scope="col">ELIMINAR</th>
+				</tr>
+			</thead>
+			<tbody>
+			
+				<tr th:each="pr:${listaProfesores}">
+					<th scope="row" th:text="${pr.id}"></th>
+					<td th:text="${pr.nombre}"></td>
+					<td th:text="${pr.apellido}"></td>
+					<td th:text="${pr.dni}"></td>
+					<td th:text="${pr.direccion}"></td>
+					<td th:text="${pr.email}"></td>
+					<td th:if="${pr.activo}">ACTIVO</td>
+					<td th:unless="${pr.activo}">INACTIVO</td>
+					<td><a class="btn btn-success btn-sm"
+						th:href="@{/admin/editar/}+${pr.id}"
+						title="Editar Registro">Editar</a></td>
+					<td><a class="btn btn-danger btn-sm"
+						th:href="@{/admin/eliminar/}+${pr.id}"
+						title="Eliminar Registro"
+						onclick="return confirm('¿Estas seguro de eliminar al profesor?')">Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+	<footer th:replace="/plantilla/template :: footer"></footer>
+</body>
+</html>
